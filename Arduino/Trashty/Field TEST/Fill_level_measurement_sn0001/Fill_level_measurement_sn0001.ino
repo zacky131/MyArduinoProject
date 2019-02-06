@@ -1,14 +1,12 @@
+#include <Ultrasonic.h>
+#include <ESP8266WiFi.h>  
+#include <WiFiClient.h>  
 #include <Firebase.h>
 #include <FirebaseArduino.h>
 #include <FirebaseCloudMessaging.h>
 #include <FirebaseError.h>
 #include <FirebaseHttpClient.h>
 #include <FirebaseObject.h>
-
-
-#include <Ultrasonic.h>
-#include <ESP8266WiFi.h>  
-#include <WiFiClient.h>  
 #include <time.h>
 
 #define FIREBASE_HOST "home-automation-17d36.firebaseio.com"  //Firebase Project URL goes here without "http:" , "\" and "/"
@@ -23,10 +21,12 @@ int distance_percent;
 int trashbin_size = 100; // in cm, harus di ukur, tiap tempat sampah beda ukuran
 int timezone = 7;
 int dst = 0;
+char num[50] = 
 
 //Wifi setting!!!!!!!!!!!!!!!!!!!!! ini harus di ubah berdasarkan lokasi test
 const char* ssid = "LaMaison";  
 const char* password = "12345678";  
+
 
 
 void setup(){  
@@ -122,5 +122,5 @@ void loop(){
 
 
 Serial.println("Going into deep sleep");
-ESP.deepSleep(10e6); // 10 seconds
+ESP.deepSleep(600e6); // 600 seconds
 } 

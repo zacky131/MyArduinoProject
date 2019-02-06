@@ -1,14 +1,12 @@
+#include <Ultrasonic.h>
+#include <ESP8266WiFi.h>  
+#include <WiFiClient.h>  
 #include <Firebase.h>
 #include <FirebaseArduino.h>
 #include <FirebaseCloudMessaging.h>
 #include <FirebaseError.h>
 #include <FirebaseHttpClient.h>
 #include <FirebaseObject.h>
-
-
-#include <Ultrasonic.h>
-#include <ESP8266WiFi.h>  
-#include <WiFiClient.h>  
 #include <time.h>
 
 #define FIREBASE_HOST "home-automation-17d36.firebaseio.com"  //Firebase Project URL goes here without "http:" , "\" and "/"
@@ -65,10 +63,10 @@ void setup(){
 
   // Define initial variable in Firebase database
   // Harus di ubah tiap device akan beda
-  Firebase.setString("locations/1/SerialNumber","Trsh0001");
-  Firebase.setString("locations/1/Address","SMP 8 Bandung");
-  Firebase.setFloat("locations/1/Latitude", -6.951580); 
-  Firebase.setFloat("locations/1/Longitude", 107.641060); 
+  Firebase.setString("locations/2/SerialNumber","Trsh0002");
+  Firebase.setString("locations/2/Address","Restaurant");
+  Firebase.setFloat("locations/2/Latitude", -6.932962); 
+  Firebase.setFloat("locations/2/Longitude", 107.618250); 
   
 }
 
@@ -104,23 +102,23 @@ void loop(){
   Serial.print(distance_percent);
   Serial.println("%");
 
-  Firebase.setString("locations/1/Time",ctime(&now));
-  Firebase.setInt("locations/1/RawFillLevel",distance_percent);
-  Firebase.setInt("locations/1/RawTrashDistance",distance);
+  Firebase.setString("locations/2/Time",ctime(&now));
+  Firebase.setInt("locations/2/RawFillLevel",distance_percent);
+  Firebase.setInt("locations/2/RawTrashDistance",distance);
 
   // Push data to serial and Firebase
  if (distance >= 0 && distance <= 100){
-     Firebase.setInt("locations/1/FillLevel",distance_percent);
+     Firebase.setInt("locations/2/FillLevel",distance_percent);
    
  }
   
  if (distance_percent >= 0 && distance_percent <= 100){
-     Firebase.setInt("locations/1/TrashDistance",distance); 
+     Firebase.setInt("locations/2/TrashDistance",distance); 
       
   }
    delay(1000);
 
 
 Serial.println("Going into deep sleep");
-ESP.deepSleep(10e6); // 10 seconds
+ESP.deepSleep(600e6); // 600 seconds
 } 
